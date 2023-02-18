@@ -22,7 +22,16 @@ impl LedgerClient {
     }
 
     pub async fn delete(&self, name: &str) -> Result<(), Box<dyn std::error::Error>> {
+        let _ = self
+            .0
+            .update_ledger()
+            .name(name)
+            .deletion_protection(false)
+            .send()
+            .await?;
+
         let _ = self.0.delete_ledger().name(name).send().await?;
+
         Ok(())
     }
 }
