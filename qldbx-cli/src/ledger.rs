@@ -1,13 +1,16 @@
 use crate::ConnectOpts;
+use qldbx_core::ledger_client::LedgerClient;
 
 pub async fn create(connect_opts: &ConnectOpts) -> Result<(), Box<dyn std::error::Error>> {
-    qldbx_core::ledger::create(&connect_opts.uri, &connect_opts.name).await?;
+    let client = LedgerClient::new(&connect_opts.uri).await?;
+    let _ = client.create(&connect_opts.name).await?;
 
     Ok(())
 }
 
 pub async fn delete(connect_opts: &ConnectOpts) -> Result<(), Box<dyn std::error::Error>> {
-    qldbx_core::ledger::delete(&connect_opts.uri, &connect_opts.name).await?;
+    let client = LedgerClient::new(&connect_opts.uri).await?;
+    client.delete(&connect_opts.name).await?;
 
     Ok(())
 }
