@@ -1,6 +1,6 @@
 mod ledger;
 
-use clap::{Parser, Subcommand};
+use clap::{Args, Parser, Subcommand};
 
 #[derive(Parser, Debug)]
 #[clap(author, version, about, name = "qldbx")]
@@ -23,8 +23,23 @@ pub struct LedgerCli {
 
 #[derive(Parser, Debug)]
 pub enum LedgerCommand {
-    Create { name: String },
-    Delete { name: String },
+    Create {
+        #[clap(flatten)]
+        connect_opts: ConnectOpts,
+    },
+    Delete {
+        #[clap(flatten)]
+        connect_opts: ConnectOpts,
+    },
+}
+
+#[derive(Args, Debug)]
+pub struct ConnectOpts {
+    #[clap(long, short = 'U', env)]
+    pub uri: String,
+
+    #[clap(long, short = 'N', env)]
+    pub name: String,
 }
 
 #[tokio::main]
@@ -33,8 +48,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     match cli.cmd {
         Command::Ledger(l) => match l.cmd {
-            LedgerCommand::Create { name } => ledger::create().await?,
-            LedgerCommand::Delete { name } => ledger::delete().await?,
+            LedgerCommand::Create { connect_opts } => ledger::create(&connect_opts).await?,
+            LedgerCommand::Delete { connect_opts } => ledger::delete(&connect_opts).await?,
         },
     }
 

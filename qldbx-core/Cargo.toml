@@ -4,3 +4,6 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+aws-config = "0.54.1"
+aws-sdk-qldb = "0.24.0"
+# aws-smithy-http = "0.54.3"
