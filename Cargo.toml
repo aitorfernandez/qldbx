@@ -1,4 +1,2 @@
 [workspace]
-members = [
-  "qldbx-cli",
-]
+members = ["qldbx-cli", "qldbx-core"]
