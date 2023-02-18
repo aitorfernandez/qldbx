@@ -44,6 +44,8 @@ pub struct ConnectOpts {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    dotenvy::dotenv().ok();
+
     let cli = Cli::parse();
 
     match cli.cmd {
