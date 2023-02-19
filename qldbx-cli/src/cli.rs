@@ -42,7 +42,14 @@ pub struct MigrateCli {
 
 #[derive(Parser, Debug)]
 pub enum MigrateCommand {
-    Create { name: String },
+    Create {
+        name: String,
+    },
+
+    Run {
+        #[clap(flatten)]
+        connect_opts: ConnectOpts,
+    },
 }
 
 #[derive(Args, Debug)]

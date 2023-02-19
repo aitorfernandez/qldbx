@@ -1527,9 +1527,11 @@ name = "qldbx-core"
 version = "0.1.0"
 dependencies = [
  "amazon-qldb-driver-core",
+ "async-trait",
  "aws-config",
  "aws-sdk-qldb",
  "sha2",
+ "tokio",
 ]
 
 [[package]]
