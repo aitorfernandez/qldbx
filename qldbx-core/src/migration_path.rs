@@ -25,7 +25,7 @@ impl<'s> MigrationPath<'s> for &'s Path {
                 .trim_end_matches(MigrationType::extension())
                 .to_owned();
             let mut stmt = fs::read_to_string(&entry.path()).await?;
-            let _ = stmt.pop();
+            stmt.pop();
 
             migrations.push(Migration::new(MigrationArgs {
                 name: Cow::Owned(name),

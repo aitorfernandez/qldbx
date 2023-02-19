@@ -27,22 +27,26 @@ impl LedgerDriver {
         todo!()
     }
 
+    pub async fn list_migrations(&self) -> Result<StatementResults, Box<dyn std::error::Error>> {
+        todo!()
+    }
+
     pub async fn check_migrations(&self) -> Result<(), Box<dyn std::error::Error>> {
-        for stmt in [
-            "create table _qldbx_migrations",
-            "create index on _qldbx_migrations (utc)",
-        ] {
-            let _ = self.execute_statement(stmt).await?;
+        let stmt =
+            "select name from information_schema.user_tables where name = '_qldbx_migrations'";
+        if self.execute_statement(stmt).await?.len() == 0 {
+            for stmt in [
+                "create table _qldbx_migrations",
+                "create index on _qldbx_migrations (utc)",
+            ] {
+                let _ = self.execute_statement(stmt).await?;
+            }
         }
 
         Ok(())
     }
 
-    pub async fn list_migrations(&self) -> Result<StatementResults, Box<dyn std::error::Error>> {
-        todo!()
-    }
-
-    pub async fn execute_statement(
+    async fn execute_statement(
         &self,
         stmt: &str,
     ) -> Result<StatementResults, Box<dyn std::error::Error>> {
