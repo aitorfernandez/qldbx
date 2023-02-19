@@ -1,5 +1,5 @@
-use crate::ConnectOpts;
-use qldbx_core::ledger_client::LedgerClient;
+use crate::cli::ConnectOpts;
+use qldbx_core::LedgerClient;
 
 pub async fn create(connect_opts: &ConnectOpts) -> Result<(), Box<dyn std::error::Error>> {
     let client = LedgerClient::new(&connect_opts.uri).await?;

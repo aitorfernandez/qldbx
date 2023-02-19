@@ -10,3 +10,7 @@
 kko
 
 target
+
+.env
+
+migrations

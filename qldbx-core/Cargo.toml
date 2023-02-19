@@ -5,6 +5,6 @@ edition = "2021"
 
 [dependencies]
 amazon-qldb-driver-core = { version = "*", git = "https://github.com/awslabs/amazon-qldb-driver-rust.git", package = "amazon-qldb-driver-core" }
-# aws-config = "0.54.1"
 aws-config = { version = "0.52.0", features = [] }
 aws-sdk-qldb = "0.22.0"
+sha2 = "0.10.6"
