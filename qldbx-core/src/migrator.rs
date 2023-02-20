@@ -1,5 +1,6 @@
 use super::{Migration, MigrationPath};
 use std::borrow::Cow;
+use std::slice;
 
 #[derive(Debug)]
 pub struct Migrator {
@@ -14,5 +15,9 @@ impl Migrator {
         Ok(Self {
             migrations: Cow::Owned(path.resolve().await?),
         })
+    }
+
+    pub fn iter(&self) -> slice::Iter<'_, Migration> {
+        self.migrations.iter()
     }
 }

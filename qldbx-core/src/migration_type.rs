@@ -9,10 +9,6 @@ impl MigrationType {
         ".partiql"
     }
 
-    pub fn content() -> &'static str {
-        "-- PartiQL content\n"
-    }
-
     pub fn split_char() -> char {
         '_'
     }

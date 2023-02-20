@@ -2,7 +2,7 @@ use crate::cli::ConnectOpts;
 use chrono::Utc;
 use qldbx_core::{LedgerDriver, MigrationType, Migrator};
 use std::path::Path;
-use tokio::{fs, io::AsyncWriteExt};
+use tokio::fs;
 
 pub async fn create(name: &str) -> Result<(), Box<dyn std::error::Error>> {
     fs::create_dir_all(MigrationType::path()).await?;
@@ -14,15 +14,27 @@ pub async fn create(name: &str) -> Result<(), Box<dyn std::error::Error>> {
 
     let path = Path::new(MigrationType::path()).join(file_name);
 
-    let mut file = fs::File::create(&path).await?;
-    file.write_all(MigrationType::content().as_bytes()).await?;
+    fs::File::create(&path).await?;
 
     Ok(())
 }
 
 pub async fn run(connect_opts: &ConnectOpts) -> Result<(), Box<dyn std::error::Error>> {
-    let _migrator = Migrator::new(Path::new(MigrationType::path())).await?;
-    let _driver = LedgerDriver::new(&connect_opts.uri, &connect_opts.name).await?;
+    let migrator = Migrator::new(Path::new(MigrationType::path())).await?;
+    let driver = LedgerDriver::new(&connect_opts.uri, &connect_opts.name).await?;
 
-    todo!()
+    driver.check_migrations().await?;
+
+    let applied_migrations = driver.list_migrations().await?;
+
+    for m in migrator.iter() {
+        if !applied_migrations
+            .iter()
+            .any(|a| a.checksum == m.checksum())
+        {
+            driver.apply(m).await?;
+        }
+    }
+
+    Ok(())
 }
