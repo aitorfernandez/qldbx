@@ -32,7 +32,7 @@ impl LedgerDriver {
                 "create table _qldbx_migrations",
                 "create index on _qldbx_migrations (utc)",
             ] {
-                let _ = self.execute_statement(stmt).await?;
+                self.execute_statement(stmt).await?;
             }
         }
 
