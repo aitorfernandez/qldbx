@@ -33,6 +33,7 @@ pub async fn run(connect_opts: &ConnectOpts) -> Result<(), Box<dyn std::error::E
             .any(|a| a.checksum == m.checksum())
         {
             driver.apply(m).await?;
+            println!("Applied {} {}", m.utc, m.name);
         }
     }
 
