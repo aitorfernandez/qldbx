@@ -1,6 +1,5 @@
-use crate::cli::ConnectOpts;
+use crate::{cli::ConnectOpts, LedgerDriver, MigrationType, Migrator};
 use chrono::Utc;
-use qldbx_core::{LedgerDriver, MigrationType, Migrator};
 use std::path::Path;
 use tokio::fs;
 

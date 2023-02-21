@@ -1,4 +1,4 @@
-use super::{Migration, MigrationArgs, MigrationType};
+use crate::{Migration, MigrationArgs, MigrationType};
 use std::{borrow::Cow, path::Path};
 use tokio::fs;
 

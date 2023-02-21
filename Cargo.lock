@@ -1512,24 +1512,16 @@ dependencies = [
 ]
 
 [[package]]
-name = "qldbx-cli"
-version = "0.1.0"
-dependencies = [
- "chrono",
- "clap 4.1.6",
- "dotenvy",
- "qldbx-core",
- "tokio",
-]
-
-[[package]]
-name = "qldbx-core"
+name = "qldbx"
 version = "0.1.0"
 dependencies = [
  "amazon-qldb-driver-core",
  "async-trait",
  "aws-config",
  "aws-sdk-qldb",
+ "chrono",
+ "clap 4.1.6",
+ "dotenvy",
  "hex",
  "ion-c-sys",
  "sha2",

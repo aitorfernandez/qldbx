@@ -1,4 +1,4 @@
-use super::{Migration, MigrationPath};
+use crate::{Migration, MigrationPath};
 use std::borrow::Cow;
 use std::slice;
 

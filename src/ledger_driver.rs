@@ -1,4 +1,4 @@
-use super::{Migration, MigrationLedger};
+use crate::{Migration, MigrationLedger};
 use amazon_qldb_driver_core::{
     api::QldbSessionSdk,
     aws_sdk_qldbsession::{Config, Endpoint},

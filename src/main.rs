@@ -1,9 +1,8 @@
-mod cli;
-mod ledger;
-mod migrate;
-
 use clap::Parser;
-use cli::{Cli, Command, LedgerCommand, MigrateCommand};
+use qldbx::{
+    cli::{Cli, Command, LedgerCommand, MigrateCommand},
+    ledger, migrate,
+};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
