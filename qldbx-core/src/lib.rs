@@ -1,3 +1,4 @@
+mod error;
 mod ledger_client;
 mod ledger_driver;
 mod migration;
@@ -6,6 +7,7 @@ mod migration_path;
 mod migration_type;
 mod migrator;
 
+pub use error::*;
 pub use ledger_client::*;
 pub use ledger_driver::*;
 pub use migration::*;

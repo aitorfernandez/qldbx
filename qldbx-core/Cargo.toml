@@ -8,11 +8,8 @@ amazon-qldb-driver-core = { version = "*", git = "https://github.com/awslabs/ama
 async-trait = "0.1.64"
 aws-config = { version = "0.52.0", features = [] }
 aws-sdk-qldb = "0.22.0"
+hex = "0.4.3"
 ion-c-sys = "0.4.15"
 sha2 = "0.10.6"
+thiserror = "1.0.38"
 tokio = { version = "1.25.0", features = ["fs"] }
-
-hex = "0.4.3"
-
-# serde = { version = "1.0.152", features = ["derive"] }
-# serde_ion = "0.1.0"
