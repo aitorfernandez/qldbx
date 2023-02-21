@@ -32,6 +32,10 @@ pub enum LedgerCommand {
         #[clap(flatten)]
         connect_opts: ConnectOpts,
     },
+    Reset {
+        #[clap(flatten)]
+        connect_opts: ConnectOpts,
+    },
 }
 
 #[derive(Parser, Debug)]
