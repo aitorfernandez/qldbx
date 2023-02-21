@@ -20,6 +20,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         Command::Migrate(m) => match m.cmd {
             MigrateCommand::Create { name } => migrate::create(&name).await?,
             MigrateCommand::Run { connect_opts } => migrate::run(&connect_opts).await?,
+            MigrateCommand::Info { connect_opts } => migrate::info(&connect_opts).await?,
         },
     }
 

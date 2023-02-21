@@ -33,8 +33,32 @@ pub async fn run(connect_opts: &ConnectOpts) -> Result<(), Box<dyn std::error::E
             .any(|a| a.checksum == m.checksum())
         {
             driver.apply(m).await?;
-            println!("Applied {} {}", m.utc, m.name);
+            println!("> Applied {} {}", m.utc, m.name);
         }
+    }
+
+    Ok(())
+}
+
+pub async fn info(connect_opts: &ConnectOpts) -> Result<(), Box<dyn std::error::Error>> {
+    let migrator = Migrator::new(Path::new(MigrationType::path())).await?;
+    let driver = LedgerDriver::new(&connect_opts.uri, &connect_opts.name).await?;
+
+    driver.check_migrations().await?;
+
+    let applied_migrations = driver.list_migrations().await?;
+
+    for m in migrator.iter() {
+        let status = if applied_migrations
+            .iter()
+            .any(|a| a.checksum == m.checksum())
+        {
+            "Applied"
+        } else {
+            "Not Applied"
+        };
+
+        println!("> {status} {} {}", m.utc, m.name);
     }
 
     Ok(())

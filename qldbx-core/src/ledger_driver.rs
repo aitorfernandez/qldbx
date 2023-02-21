@@ -64,7 +64,7 @@ impl LedgerDriver {
         &self,
         stmt: &str,
     ) -> Result<StatementResults, Box<dyn std::error::Error>> {
-        println!(">execute_statement {stmt}");
+        println!("> Executing statement {stmt}");
         Ok(self
             .0
             .transact(|mut tx| async {

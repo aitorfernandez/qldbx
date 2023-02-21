@@ -49,8 +49,11 @@ pub enum MigrateCommand {
     Create {
         name: String,
     },
-
     Run {
+        #[clap(flatten)]
+        connect_opts: ConnectOpts,
+    },
+    Info {
         #[clap(flatten)]
         connect_opts: ConnectOpts,
     },
