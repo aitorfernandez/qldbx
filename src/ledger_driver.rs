@@ -10,6 +10,7 @@ use amazon_qldb_driver_core::{
 pub struct LedgerDriver(QldbDriver<QldbSessionSdk>);
 
 impl LedgerDriver {
+    /// Create a new LedgerDriver using amazon_qldb_driver_core using the uri and name from the .env file.
     pub async fn new(uri: &str, name: &str) -> Result<Self, Box<dyn std::error::Error>> {
         let sdk_config = aws_config::from_env()
             .endpoint_resolver(Endpoint::immutable(uri)?)
@@ -24,6 +25,7 @@ impl LedgerDriver {
         ))
     }
 
+    /// Check if table '_qldbx_migrations' exists and create if it does not exist.
     pub async fn check_migrations(&self) -> Result<(), Box<dyn std::error::Error>> {
         let stmt =
             "select name from information_schema.user_tables where name = '_qldbx_migrations'";
@@ -39,6 +41,7 @@ impl LedgerDriver {
         Ok(())
     }
 
+    /// Select all migrations from '_qldbx_migrations'.
     pub async fn list_migrations(
         &self,
     ) -> Result<Vec<MigrationLedger>, Box<dyn std::error::Error>> {
@@ -51,6 +54,7 @@ impl LedgerDriver {
             .collect::<Result<_, _>>()?)
     }
 
+    /// Prepares the statement for insert the migration.
     pub async fn apply(&self, migration: &Migration) -> Result<(), Box<dyn std::error::Error>> {
         self.execute_statement(&migration.statement.clone()).await?;
 
@@ -60,6 +64,7 @@ impl LedgerDriver {
         Ok(())
     }
 
+    /// Executes the statement passed.
     async fn execute_statement(
         &self,
         stmt: &str,

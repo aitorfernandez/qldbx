@@ -27,3 +27,18 @@ impl TryFrom<String> for MigrationLedger {
         Ok(Self { checksum })
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn try_from_test() -> Result<(), IonCError> {
+        let ion_string = "{ checksum: \"abcd1234\" }".to_string();
+        let ledger = MigrationLedger::try_from(ion_string)?;
+
+        assert_eq!(ledger.checksum, "abcd1234");
+
+        Ok(())
+    }
+}
