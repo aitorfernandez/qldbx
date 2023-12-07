@@ -16,13 +16,18 @@ async-trait = "0.1.64"
 aws-config = { version = "0.52.0", features = [] }
 aws-sdk-qldb = "0.22.0"
 chrono = "0.4.23"
-clap = { version = "4.1.6", features = ["derive", "env"] }
+clap = { version = "4.4.11", features = ["derive", "env"] }
 dotenvy = "0.15.6"
 hex = "0.4.3"
 ion-c-sys = "0.4.15"
 sha2 = "0.10.6"
 thiserror = "1.0.38"
-tokio = { version = "1.25.0", features = ["macros", "rt", "rt-multi-thread", "fs"]}
+tokio = { version = "1.34.0", features = [
+    "macros",
+    "rt",
+    "rt-multi-thread",
+    "fs",
+] }
 
 [dev-dependencies]
 tempfile = "3.3.0"
